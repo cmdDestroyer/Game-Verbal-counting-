@@ -1,0 +1,73 @@
+import sys
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QLCDNumber
+from Design import Ui_MainWindow
+from PyQt5.QtCore import QTime, QTimer
+
+from random import randint
+
+a = randint(1, 100)
+ast = str(a)
+b = randint(1, 100)
+bst = str(b)
+sum = str(a + b)
+print(sum)
+score = 0
+sek = 5000
+
+class window(QtWidgets.QMainWindow):
+    def __init__(self):
+        super(window, self).__init__()
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
+        self.init_handlers()
+        self.math()
+
+        timer = QTimer(self)
+        timer.timeout.connect(self.mathun)
+        timer.start(sek)
+
+
+    def init_handlers(self):
+        self.ui.pushButton.clicked.connect(self.send_message)
+        self.ui.pushButton_2.clicked.connect(self.math)
+
+
+    def send_message(self):
+        global sum, scorestr, a, b, score
+        message = self.ui.lineEdit.text()
+        self.ui.plainTextEdit.appendPlainText(message)
+        if message == sum:
+            a = randint(1, 100)
+            b = randint(1, 100)
+            sum = str(a + b)
+            self.ui.plainTextEdit.appendPlainText("\nА ты не плох\n")
+            self.math()
+            print(sum)
+            score += 20
+        else:
+            self.ui.plainTextEdit.appendPlainText("Ебать ты тупой")
+            a = randint(1, 100)
+            b = randint(1, 100)
+            sum = str(a + b)
+            print(sum)
+            self.math()
+            score -= 15
+        scorestr = str(score)
+        self.ui.scoreint.setText(scorestr)
+        self.ui.lineEdit.clear()
+
+    def math(self):
+        self.ui.plainTextEdit.appendPlainText(str(a))
+        self.ui.plainTextEdit.appendPlainText("+")
+        self.ui.plainTextEdit.appendPlainText(str(b))
+
+    def mathun(self):
+        global score
+        score -= 20
+
+
+app = QtWidgets.QApplication([])
+application = window()
+application.show()
+sys.exit(app.exec())
