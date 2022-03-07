@@ -41,12 +41,12 @@ class window(QtWidgets.QMainWindow):
             a = randint(1, 100)
             b = randint(1, 100)
             sum = str(a + b)
-            self.ui.plainTextEdit.appendPlainText("\nА ты не плох\n")
+            self.ui.plainTextEdit.appendPlainText("\nRight!\n")
             self.math()
             print(sum)
             score += 20
         else:
-            self.ui.plainTextEdit.appendPlainText("Ебать ты тупой")
+            self.ui.plainTextEdit.appendPlainText("Wrong!")
             a = randint(1, 100)
             b = randint(1, 100)
             sum = str(a + b)
